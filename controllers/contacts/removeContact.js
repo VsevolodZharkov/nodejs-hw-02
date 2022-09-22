@@ -8,7 +8,7 @@ const removeContact = async (req, res) => {
     throw RequestError(404);
   }
   res.json({
-    message: "Book deleted",
+    message: "Contacts deleted",
   });
 };
 
