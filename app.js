@@ -1,9 +1,11 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
-const { DB_HOST } = process.env;
-const mongoose = require("mongoose")
+const dotenv = require("dotenv")
 
+const mongoose = require("mongoose")
+dotenv.config();
+const { DB_HOST } = process.env;
 mongoose.connect(DB_HOST)
 	.then(() => console.log("Database connection successful"))
 	.catch(error => {
