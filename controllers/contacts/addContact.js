@@ -1,7 +1,7 @@
 const { RequestError } = require("../../helpers");
 const { addSchema } = require("../../schemas/contacts");
 
-const Contact = require("../../models/contacts")
+const { Contact } = require("../../models/contacts")
 
 const addCont = async (req, res) => {
   const { error } = addSchema.validate(req.body);
