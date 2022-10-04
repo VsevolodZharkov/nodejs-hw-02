@@ -1,6 +1,7 @@
 const { Schema, model } = require("mongoose");
-const handleSaveError = require("../middleware");
 const Joi = require("joi");
+const handleSaveError = require("../middleware");
+
 const contactSchema = new Schema({
 	name: {
 		type: String,
@@ -27,11 +28,16 @@ const addSchema = Joi.object({
 	favorite: Joi.Boolean(),
 })
 
+const updateFavoriteSchema = Joi.object({
+	favorite: Joi.Boolean().required(),
+})
+
 const schema = {
 	addSchema,
+	updateFavoriteSchema,
 }
 
-const Contact = model("contacts", contactSchema);
+const Contact = model("contact", contactSchema);
 
 module.exports = {
 	Contact,

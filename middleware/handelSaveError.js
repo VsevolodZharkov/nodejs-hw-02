@@ -1,7 +1,7 @@
-const getErrorStatus = ({name, code}) => (name === "MangoServerError" && code === 11000) ? 409 : 400;
+const isConflict = ({name, code}) => (name === "MangoServerError" && code === 11000);
 
 const handleSaveError = (error, _, next) => {
-	error.status = getErrorStatus(error);
+	error.status = isConflict(error) ? 409 : 400;
 	next();
 };
 
