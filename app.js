@@ -1,7 +1,7 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
-const { DB_HOST } = require("./config")
+const { DB_HOST } = process.env;
 const mongoose = require("mongoose")
 
 mongoose.connect(DB_HOST)
