@@ -1,4 +1,4 @@
-const handleSaveError = require("./handelSaveError")
+const handleSaveError = require("./handleSaveError")
 const validateBody = require("./validateBody")
 
 module.exports = {
