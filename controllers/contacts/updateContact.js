@@ -1,14 +1,9 @@
 const { RequestError } = require("../../helpers");
-const contacts = require("../../models/contacts");
-const { addSchema } = require("../../schemas/contacts");
+const { Contact } = require("../../models/contact");
 
 const updateContact = async (req, res) => {
-  const { error } = addSchema.validate(req.body);
-  if (error) {
-    throw RequestError(400, error.message);
-  }
   const { id } = req.params;
-  const result = await contacts.updateContact(id, req.body);
+  const result = await Contact.findByIdAndUpdate(id, req.body, {new: true});
   if (!result) {
     throw RequestError(404);
   }
