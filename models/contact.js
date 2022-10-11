@@ -17,7 +17,7 @@ const contactSchema = new Schema({
 		type: Boolean,
 		default: false,
 	},
-});
+}, {versionKey: false, timestamps: true});
 
 const isConflict = ({name, code}) => (name === "MangoServerError" && code === 11000);
 

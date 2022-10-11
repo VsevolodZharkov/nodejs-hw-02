@@ -33,7 +33,7 @@ const userSchema = new Schema ({
 		ref: 'user',
 		require: true,
 	},
-});
+}, {versionKey: false, timestamps: true});
 
 userSchema.post("save", handleSaveError);
 
@@ -42,21 +42,22 @@ const registerSchema = Joi.object({
 	email: string().required(),
 	password: string().min(6).required(),
 	token: string(),
+	owner: string().required(),
 });
 
-const loginSchema = Joi.object({
-	email: string().required(),
-	password: string().min(6).required(),
-});
+// const loginSchema = Joi.object({
+// 	email: string().required(),
+// 	password: string().min(6).required(),
+// });
 
 const schemas = {
 	registerSchema,
-	loginSchema
+	// loginSchema
 };
 
 const User = model("user", userSchema);
 
 module.exports = {
 	schemas,
-	User
+	User,
 };

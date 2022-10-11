@@ -28,7 +28,7 @@ const login = async(req, res) => {
     	email: user.email,
     	subscription: user.subscription,
  	 	}
-	})
+	});
 }
 
 module.exports = login;
