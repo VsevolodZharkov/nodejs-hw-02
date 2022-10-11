@@ -33,16 +33,16 @@ const addSchema = Joi.object({
 	email: Joi.string().required(),
 	phone: Joi.string().required(),
 	favorite: Joi.boolean(),
-})
+});
 
 const updateFavoriteSchema = Joi.object({
 	favorite: Joi.boolean().required(),
-})
+});
 
 const schema = {
 	addSchema,
 	updateFavoriteSchema,
-}
+};
 
 const Contact = model("contact", contactSchema);
 

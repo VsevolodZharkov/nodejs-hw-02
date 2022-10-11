@@ -33,7 +33,7 @@ const userSchema = new Schema ({
 		ref: 'user',
 		require: true,
 	},
-}, {versionKey: false, timestamps: true});
+});
 
 userSchema.post("save", handleSaveError);
 
@@ -59,4 +59,4 @@ const User = model("user", userSchema);
 module.exports = {
 	schemas,
 	User
-}
+};

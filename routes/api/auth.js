@@ -1,13 +1,11 @@
-//  npm i bcryptjs
-// npm i jsonwebtoken
-// не забыть скопировать .env
+
 const express = require("express");
 
 const ctrl = require("../../controllers/auth");
 const { ctrlWrapper } = require("../../helpers");
 
 const { validateBody, authenticate } = require("../../middleware");
-const { schema } = require("../../models/user")
+const { schema } = require("../../models/user");
 
 const router = express.Router();
 
