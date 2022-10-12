@@ -17,7 +17,8 @@ const contactSchema = new Schema({
 		type: Boolean,
 		default: false,
 	},
-});
+}, {versionKey: false, timestamps: true});
+
 const isConflict = ({name, code}) => (name === "MangoServerError" && code === 11000);
 
 const handleSaveError = (error, _, next) => {
@@ -32,16 +33,16 @@ const addSchema = Joi.object({
 	email: Joi.string().required(),
 	phone: Joi.string().required(),
 	favorite: Joi.boolean(),
-})
+});
 
 const updateFavoriteSchema = Joi.object({
 	favorite: Joi.boolean().required(),
-})
+});
 
 const schema = {
 	addSchema,
 	updateFavoriteSchema,
-}
+};
 
 const Contact = model("contact", contactSchema);
 
