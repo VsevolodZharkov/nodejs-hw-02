@@ -1,7 +1,5 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
-const { string } = require("joi");
-
 const isConflict = ({name, code}) => (name === "MangoServerError" && code === 11000);
 
 const handleSaveError = (error, _, next) => {
@@ -28,31 +26,24 @@ const userSchema = new Schema ({
     type: String,
     default: null,
   },
-	owner: {
-		type: Schema.Types.ObjectId,
-		ref: 'user',
-		require: true,
-	},
-}, {versionKey: false, timestamps: true});
+}, {versionKey: false});
 
 userSchema.post("save", handleSaveError);
 
 const registerSchema = Joi.object({
-	subscription: string(),
-	email: string().required(),
-	password: string().min(6).required(),
-	token: string(),
-	owner: string().required(),
+	subscription: Joi.string(),
+	email: Joi.string().required(),
+	password: Joi.string().min(6).required(),
 });
 
-// const loginSchema = Joi.object({
-// 	email: string().required(),
-// 	password: string().min(6).required(),
-// });
+ const loginSchema = Joi.object({
+	email: Joi.string().required(),
+	password: Joi.string().min(6).required(),
+ });
 
 const schemas = {
 	registerSchema,
-	// loginSchema
+	loginSchema
 };
 
 const User = model("user", userSchema);

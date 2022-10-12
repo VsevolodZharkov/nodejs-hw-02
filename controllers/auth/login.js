@@ -1,34 +1,42 @@
 const bcrypt = require("bcryptjs");
-
 const jwt = require("jsonwebtoken");
 
-const {User} = require("../../models/user");
+const { User } = require("../../models/user");
 const { RequestError } = require("../../helpers");
+require("dotenv").config();
 
-const {SECRET_KEY} = process.env;
+const { SECRET_KEY } = process.env;
 
-const login = async(req, res) => {
-	const { email, password } = req.body;
-	const user = await User.findOne({email});
-	if (!user) {
-		throw RequestError(401, "Email or password is wrong");
-	}
-	const passwordComp = await bcrypt.compare(password, user.password);
- 	if( !passwordComp ) {
-		throw RequestError(401, "Email or password is wrong");
- 	}
+const login = async (req, res) => {
+  const { email, password } = req.body;
 
-	const payload = {
-		id: user.id,
-	}
-	const token = jwt.sign(payload, SECRET_KEY, {expiresIN: "1h"});
-	res.status(200).json({
-		token: token,
-  	user: {
-    	email: user.email,
-    	subscription: user.subscription,
- 	 	}
-	});
-}
+  const result = await User.findOne({ email });
+
+  if (!result) {
+    throw new RequestError(401, "Email or Password is wrong");
+  }
+
+  const checkPass = await bcrypt.compare(password, result.password);
+
+  if (!checkPass) {
+    throw new RequestError(401, "Email or Password is wrong");
+  }
+
+  const token = jwt.sign({ id: result._id }, SECRET_KEY, { expiresIn: "1h" });
+
+  const updatedUser = await User.findOneAndUpdate(
+    { id: result._id },
+    { token },
+    { new: true }
+  );
+
+  res.json({
+    token: updatedUser.token,
+    user: {
+      email: updatedUser.email,
+      subscription: updatedUser.subscription,
+    },
+  });
+};
 
 module.exports = login;
