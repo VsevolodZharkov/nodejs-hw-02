@@ -1,9 +1,10 @@
-const handleSaveError = require("./handleSaveError");
+
 const validateBody = require("./validateBody");
 const authenticate = require("./authenticate");
+const upload = require("./upload");
 
 module.exports = {
-	handleSaveError,
-	validateBody,
+  validateBody,
   authenticate,
-}
+  upload,
+};
