@@ -15,6 +15,11 @@ router.post("/signup", validateBody(schemas.registerSchema), ctrlWrapper(ctrl.re
 //  signip
 router.post("/login",validateBody(schemas.loginSchema), ctrlWrapper(ctrl.login));
 
+router.get("/varify/:verificationToken",  ctrlWrapper(ctrl.verifyEmail));
+
+router.post("/varify",validateBody(schemas.emailSchema),  ctrlWrapper(ctrl.resendEmail));
+
+
 // logout
 router.get("/logout", authenticate, ctrlWrapper(ctrl.logout));
 
